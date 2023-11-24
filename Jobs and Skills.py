@@ -68,7 +68,11 @@ def create_chrome_history_csv(output_csv):
         # Close the database connection
         if connection:
             connection.close()
-
+if __name__ == "__main__":
+    # Replace 'path/to/output/chrome_history.csv' with the desired output path and filename
+    output_csv = os.path.join(os.getcwd(), 'chrome_history.csv')
+    create_chrome_history_csv(output_csv)
+    
 def analyze_chrome_history(csv_file_path, output_html_path='index.html'):
     try:
         # Read the CSV file containing Chrome history
