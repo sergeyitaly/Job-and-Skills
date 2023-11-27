@@ -72,7 +72,7 @@ if __name__ == "__main__":
     # Replace 'path/to/output/chrome_history.csv' with the desired output path and filename
     output_csv = os.path.join(os.getcwd(), 'chrome_history.csv')
     create_chrome_history_csv(output_csv)
-    
+
 def analyze_chrome_history(csv_file_path, output_html_path='index.html'):
     try:
         # Read the CSV file containing Chrome history
@@ -280,7 +280,7 @@ def analyze_chrome_history(csv_file_path, output_html_path='index.html'):
 
         # Create HTML content
         html_content = f"""
-        <!DOCTYPE html>
+<!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
@@ -297,15 +297,19 @@ def analyze_chrome_history(csv_file_path, output_html_path='index.html'):
                     <th>Rank</th>
                     <th>Job Position</th>
                     <th>Domain Visits</th>
+                    <th>Percentage</th>
                 </tr>
                 """
+        total_visits = sum(domain[1] for domain in sorted_domains)
         for i, (domain, frequency) in enumerate(top_5_domains, start=1):
             job_position = job_positions_mapping.get(domain, 'No available')
+            percentage = (frequency / total_visits) * 100 if total_visits > 0 else 0
             html_content += f"""
                 <tr>
                     <td>{i}</td>
                     <td>{job_position}</td>
                     <td>{frequency}</td>
+                    <td>{percentage:.2f}%</td>
                 </tr>
                 """
 
@@ -318,15 +322,18 @@ def analyze_chrome_history(csv_file_path, output_html_path='index.html'):
                     <th>Rank</th>
                     <th>Soft Skill</th>
                     <th>Domain Visits</th>
+                    <th>Percentage</th>
                 </tr>
                 """
         for i, (domain, frequency) in enumerate(top_5_domains, start=1):
             soft_skill = soft_skills_mapping.get(domain, 'No available')
+            percentage = (frequency / total_visits) * 100 if total_visits > 0 else 0
             html_content += f"""
                 <tr>
                     <td>{i}</td>
                     <td>{soft_skill}</td>
                     <td>{frequency}</td>
+                    <td>{percentage:.2f}%</td>
                 </tr>
                 """
 
